@@ -168,7 +168,7 @@ export default function App() {
 
         <footer className="page-footer">
           <Icon name="lock" />
-          <span>Твои задачи остаются в этом браузере. Только для тебя.</span>
+          <span>Задачи сохраняются в этом браузере.</span>
         </footer>
       </main>
 
