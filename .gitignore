@@ -1,0 +1,14 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+tests/screenshots/output/
+.sites-runtime/
+.sites-checkout/
+*.local
+.env
+.env.*
+!.env.example
+*.tar.gz
+*.zip
+.DS_Store
