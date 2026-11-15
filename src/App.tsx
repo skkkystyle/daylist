@@ -20,6 +20,7 @@ export default function App() {
     deleted,
     addTask,
     toggleTask,
+    editTask,
     deleteTask,
     undoDelete,
     dismissUndo,
@@ -82,27 +83,24 @@ export default function App() {
           </div>
         </div>
 
-        <section
-          className="progress-card"
-          aria-label="Прогресс задач"
-        >
+        <section className="progress-card" aria-label="Прогресс задач">
           <div className="progress-symbol">
             <Icon name="check" />
           </div>
           <div className="progress-copy">
             <h2>
               {allDone
-                ? "Все планы стали делами!"
+                ? "Все задачи выполнены"
                 : tasks.length
-                  ? "Каждая галочка — маленькая победа"
-                  : "Большие дела начинаются с маленьких"}
+                  ? `Выполнено ${completed} из ${tasks.length}`
+                  : "Пока нет задач"}
             </h2>
             <p>
               {allDone
-                ? "Хорошая работа. Теперь время для себя."
+                ? "Можно добавить новую задачу."
                 : tasks.length
-                  ? `Выполнено ${completed} из ${tasks.length}. Двигайся в своём темпе.`
-                  : "Не обязательно успеть всё. Начни с одного дела."}
+                  ? "Отмечай задачи по мере выполнения."
+                  : "Добавь первую задачу в поле ниже."}
             </p>
           </div>
           <div
@@ -144,7 +142,6 @@ export default function App() {
               onChange={setFilter}
               counts={counts}
             />
-            <span className="list-caption">Твой список</span>
           </div>
           <TaskList
             tasks={visibleTasks}
@@ -152,6 +149,7 @@ export default function App() {
             filter={filter}
             onToggle={toggleTask}
             onDelete={deleteTask}
+            onEdit={editTask}
           />
           <div className="list-footer">
             <span aria-live="polite" aria-atomic="true">

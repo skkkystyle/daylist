@@ -1,5 +1,13 @@
 type IconName =
-  "plus" | "check" | "trash" | "undo" | "close" | "lock" | "calendar" | "arrow";
+  | "plus"
+  | "check"
+  | "trash"
+  | "undo"
+  | "close"
+  | "lock"
+  | "calendar"
+  | "arrow"
+  | "edit";
 
 const paths: Record<IconName, React.ReactNode> = {
   plus: <path d="M12 5v14M5 12h14" />,
@@ -31,6 +39,7 @@ const paths: Record<IconName, React.ReactNode> = {
     </>
   ),
   arrow: <path d="M5 12h14m-6-6 6 6-6 6" />,
+  edit: <path d="m16 3 5 5M4 20l5-1L21 7a2.8 2.8 0 0 0-4-4L5 15l-1 5Z" />,
 };
 
 export function Icon({

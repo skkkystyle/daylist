@@ -34,6 +34,16 @@ export function useTasks() {
     setHasChanged(true);
   }
 
+  function editTask(id: string, value: string): boolean {
+    const title = value.trim();
+    if (!title || title.length > MAX_TITLE_LENGTH) return false;
+    setTasks((current) =>
+      current.map((task) => (task.id === id ? { ...task, title } : task)),
+    );
+    setHasChanged(true);
+    return true;
+  }
+
   function deleteTask(id: string) {
     const index = tasks.findIndex((task) => task.id === id);
     if (index < 0) return;
@@ -61,6 +71,7 @@ export function useTasks() {
     deleted,
     addTask,
     toggleTask,
+    editTask,
     deleteTask,
     undoDelete,
     dismissUndo: () => setDeleted(null),

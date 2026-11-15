@@ -8,6 +8,7 @@ type Props = {
   filter: TaskFilter;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
+  onEdit: (id: string, title: string) => boolean;
 };
 
 function EmptyIllustration() {
@@ -92,6 +93,7 @@ export function TaskList({
   filter,
   onToggle,
   onDelete,
+  onEdit,
 }: Props) {
   if (tasks.length > 0) {
     return (
@@ -102,6 +104,7 @@ export function TaskList({
             task={task}
             onToggle={onToggle}
             onDelete={onDelete}
+            onEdit={onEdit}
           />
         ))}
       </ul>
