@@ -64,7 +64,6 @@ export default function App() {
             </span>
             daylist<span className="brand-dot">.</span>
           </a>
-          <span className="header-note">Твой день. В твоём ритме.</span>
         </div>
       </header>
 
@@ -80,33 +79,6 @@ export default function App() {
             <h1>
               Мои задачи<span className="heading-dot">.</span>
             </h1>
-            <p>Чуть меньше в голове. Чуть больше сделано.</p>
-          </div>
-          <div className="sun" aria-hidden="true">
-            <svg viewBox="0 0 88 88" fill="none">
-              <circle cx="44" cy="44" r="20" fill="#e6edff" />
-              <circle
-                cx="44"
-                cy="44"
-                r="13"
-                stroke="#5573d9"
-                strokeWidth="1.6"
-              />
-              <path
-                d="M44 9v7M44 72v7M9 44h7M72 44h7M19 19l5 5M64 64l5 5M19 69l5-5M64 24l5-5"
-                stroke="#a0b3eb"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <path
-                d="M38 47c3 4 9 4 12 0"
-                stroke="#5573d9"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-              />
-              <circle cx="38" cy="40" r="1.5" fill="#5573d9" />
-              <circle cx="50" cy="40" r="1.5" fill="#5573d9" />
-            </svg>
           </div>
         </div>
 
@@ -180,13 +152,10 @@ export default function App() {
             filter={filter}
             onToggle={toggleTask}
             onDelete={deleteTask}
-            onAdd={handleAdd}
           />
           <div className="list-footer">
             <span aria-live="polite" aria-atomic="true">
-              {tasks.length
-                ? `${active} ${pluralTasks(active)} впереди`
-                : "Чистый лист — хорошее начало"}
+              {tasks.length > 0 && `${active} ${pluralTasks(active)} впереди`}
             </span>
             <span className="save-status">
               <span
