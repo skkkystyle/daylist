@@ -8,7 +8,7 @@ type Props = {
   filter: TaskFilter;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
-  onAdd: (title: string) => boolean;
+  onEdit: (id: string, title: string) => boolean;
 };
 
 function EmptyIllustration() {
@@ -93,7 +93,7 @@ export function TaskList({
   filter,
   onToggle,
   onDelete,
-  onAdd,
+  onEdit,
 }: Props) {
   if (tasks.length > 0) {
     return (
@@ -104,6 +104,7 @@ export function TaskList({
             task={task}
             onToggle={onToggle}
             onDelete={onDelete}
+            onEdit={onEdit}
           />
         ))}
       </ul>
@@ -128,35 +129,12 @@ export function TaskList({
             ? "Всё сделано. Выдыхай!"
             : "Первые галочки ещё впереди"}
       </h2>
-      <p>
-        {isNew ? (
-          <>
-            Пусть важное будет перед глазами,
-            <br />а не в голове. Добавь первую задачу.
-          </>
-        ) : isActive ? (
-          "Все задачи выполнены. Можно немного отдохнуть."
-        ) : (
-          "Отметь выполненную задачу — и она появится здесь."
-        )}
-      </p>
-      {isNew && (
-        <div className="suggestions">
-          <span>Можно начать с малого</span>
-          <div>
-            {["Разобрать почту", "Прочитать 10 страниц"].map((title) => (
-              <button
-                className="suggestion-button"
-                type="button"
-                key={title}
-                onClick={() => onAdd(title)}
-              >
-                <Icon name="plus" />
-                {title}
-              </button>
-            ))}
-          </div>
-        </div>
+      {!isNew && (
+        <p>
+          {isActive
+            ? "Все задачи выполнены. Можно немного отдохнуть."
+            : "Отметь выполненную задачу — и она появится здесь."}
+        </p>
       )}
     </div>
   );

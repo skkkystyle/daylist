@@ -193,10 +193,55 @@ test("supports keyboard entry and completion with reduced motion", async ({
     page.getByRole("checkbox", { name: "Keyboard task" }),
   ).toBeChecked();
   await expect(
-    page.getByRole("heading", { name: "Все планы стали делами!" }),
+    page.getByRole("heading", { name: "Все задачи выполнены", exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: /^Активные/ }).click();
   await expect(
     page.getByRole("heading", { name: "Всё сделано. Выдыхай!" }),
   ).toBeVisible();
+});
+
+test("edits with Enter and preserves position and completion after reload", async ({ page }) => {
+  const input = page.getByRole("textbox", { name: "Что хочется сделать?" });
+  for (const title of ["Купить продукты", "Черновик письма"]) {
+    await input.fill(title);
+    await input.press("Enter");
+  }
+  await page.getByRole("checkbox", { name: "Черновик письма", exact: true }).check();
+  await page.getByRole("button", { name: "Редактировать задачу «Черновик письма»", exact: true }).click();
+  const editor = page.getByRole("textbox", { name: "Название задачи", exact: true });
+  await expect(editor).toBeFocused();
+  await editor.fill("  Отправить тестовое задание  ");
+  await editor.press("Enter");
+  await expect(page.getByRole("checkbox").nth(1)).toHaveAccessibleName("Отправить тестовое задание");
+  await expect(page.getByRole("checkbox").nth(1)).toBeChecked();
+  await page.reload();
+  await expect(page.getByRole("checkbox").nth(0)).toHaveAccessibleName("Купить продукты");
+  await expect(page.getByRole("checkbox").nth(1)).toHaveAccessibleName("Отправить тестовое задание");
+  await expect(page.getByRole("checkbox").nth(1)).toBeChecked();
+});
+
+test("rejects blank edits, cancels with Escape and the button, saves with the checkmark", async ({ page }) => {
+  await page.getByRole("textbox", { name: "Что хочется сделать?" }).fill("Исходное название");
+  await page.getByRole("textbox", { name: "Что хочется сделать?" }).press("Enter");
+  const pencil = page.getByRole("button", { name: "Редактировать задачу «Исходное название»", exact: true });
+  const editor = page.getByRole("textbox", { name: "Название задачи", exact: true });
+  await pencil.click();
+  await editor.fill("   ");
+  await editor.press("Enter");
+  await expect(page.getByRole("alert")).toHaveText("Введи название задачи.");
+  await editor.fill("Не сохранять");
+  await editor.press("Escape");
+  await expect(pencil).toBeFocused();
+  await pencil.click();
+  await expect(editor).toHaveValue("Исходное название");
+  await editor.fill("Тоже не сохранять");
+  await page.getByRole("button", { name: "Отменить редактирование", exact: true }).click();
+  await expect(page.getByRole("checkbox", { name: "Исходное название", exact: true })).toBeVisible();
+  await pencil.click();
+  await editor.fill("Новое название");
+  await page.getByRole("button", { name: "Сохранить изменения", exact: true }).click();
+  await expect(page.getByRole("checkbox", { name: "Новое название", exact: true })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole("checkbox", { name: "Новое название", exact: true })).toBeVisible();
 });

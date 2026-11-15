@@ -20,6 +20,7 @@ export default function App() {
     deleted,
     addTask,
     toggleTask,
+    editTask,
     deleteTask,
     undoDelete,
     dismissUndo,
@@ -64,7 +65,6 @@ export default function App() {
             </span>
             daylist<span className="brand-dot">.</span>
           </a>
-          <span className="header-note">Твой день. В твоём ритме.</span>
         </div>
       </header>
 
@@ -80,57 +80,27 @@ export default function App() {
             <h1>
               Мои задачи<span className="heading-dot">.</span>
             </h1>
-            <p>Чуть меньше в голове. Чуть больше сделано.</p>
-          </div>
-          <div className="sun" aria-hidden="true">
-            <svg viewBox="0 0 88 88" fill="none">
-              <circle cx="44" cy="44" r="20" fill="#e6edff" />
-              <circle
-                cx="44"
-                cy="44"
-                r="13"
-                stroke="#5573d9"
-                strokeWidth="1.6"
-              />
-              <path
-                d="M44 9v7M44 72v7M9 44h7M72 44h7M19 19l5 5M64 64l5 5M19 69l5-5M64 24l5-5"
-                stroke="#a0b3eb"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <path
-                d="M38 47c3 4 9 4 12 0"
-                stroke="#5573d9"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-              />
-              <circle cx="38" cy="40" r="1.5" fill="#5573d9" />
-              <circle cx="50" cy="40" r="1.5" fill="#5573d9" />
-            </svg>
           </div>
         </div>
 
-        <section
-          className="progress-card"
-          aria-label="Прогресс задач"
-        >
+        <section className="progress-card" aria-label="Прогресс задач">
           <div className="progress-symbol">
             <Icon name="check" />
           </div>
           <div className="progress-copy">
             <h2>
               {allDone
-                ? "Все планы стали делами!"
+                ? "Все задачи выполнены"
                 : tasks.length
-                  ? "Каждая галочка — маленькая победа"
-                  : "Большие дела начинаются с маленьких"}
+                  ? `Выполнено ${completed} из ${tasks.length}`
+                  : "Пока нет задач"}
             </h2>
             <p>
               {allDone
-                ? "Хорошая работа. Теперь время для себя."
+                ? "Можно добавить новую задачу."
                 : tasks.length
-                  ? `Выполнено ${completed} из ${tasks.length}. Двигайся в своём темпе.`
-                  : "Не обязательно успеть всё. Начни с одного дела."}
+                  ? "Отмечай задачи по мере выполнения."
+                  : "Добавь первую задачу в поле ниже."}
             </p>
           </div>
           <div
@@ -172,7 +142,6 @@ export default function App() {
               onChange={setFilter}
               counts={counts}
             />
-            <span className="list-caption">Твой список</span>
           </div>
           <TaskList
             tasks={visibleTasks}
@@ -180,13 +149,11 @@ export default function App() {
             filter={filter}
             onToggle={toggleTask}
             onDelete={deleteTask}
-            onAdd={handleAdd}
+            onEdit={editTask}
           />
           <div className="list-footer">
             <span aria-live="polite" aria-atomic="true">
-              {tasks.length
-                ? `${active} ${pluralTasks(active)} впереди`
-                : "Чистый лист — хорошее начало"}
+              {tasks.length > 0 && `${active} ${pluralTasks(active)} впереди`}
             </span>
             <span className="save-status">
               <span
@@ -201,7 +168,7 @@ export default function App() {
 
         <footer className="page-footer">
           <Icon name="lock" />
-          <span>Твои задачи остаются в этом браузере. Только для тебя.</span>
+          <span>Задачи сохраняются в этом браузере.</span>
         </footer>
       </main>
 

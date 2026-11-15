@@ -36,7 +36,7 @@ test("empty, populated and completed layouts", async ({ page }, testInfo) => {
     .getByRole("checkbox", { name: "Прогуляться без телефона" })
     .check();
   await expect(
-    page.getByText("Выполнено 1 из 4.", { exact: false }),
+    page.getByRole("heading", { name: "Выполнено 1 из 4", exact: true }),
   ).toBeVisible();
   await page.getByRole("heading", { name: "Мои задачи." }).click();
   await page.screenshot({
@@ -44,6 +44,9 @@ test("empty, populated and completed layouts", async ({ page }, testInfo) => {
     fullPage: true,
     scale: "css",
   });
+  await page.getByRole("button", { name: "Редактировать задачу «Закончить то самое тестовое»", exact: true }).click();
+  await page.screenshot({ path: path.join(output, "editing.png"), fullPage: true, scale: "css" });
+  await page.getByRole("textbox", { name: "Название задачи", exact: true }).press("Escape");
   for (const checkbox of await page.getByRole("checkbox").all())
     await checkbox.check();
   await page.getByRole("button", { name: /^Активные/ }).click();

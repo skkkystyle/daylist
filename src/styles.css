@@ -121,12 +121,7 @@
     font-weight: 800;
     letter-spacing: -1.6px;
     line-height: 1.25;
-    margin: 12px 0 9px;
-  }
-  .page-heading p {
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.6;
+    margin: 12px 0 0;
   }
   .task-panel {
     margin-top: 24px;
@@ -182,10 +177,6 @@
     color: var(--accent);
     margin-left: -10px;
   }
-  .header-note {
-    color: var(--muted);
-    font-size: 13px;
-  }
   .date-label {
     display: flex;
     align-items: center;
@@ -202,16 +193,6 @@
   }
   .heading-dot {
     color: var(--accent);
-  }
-  .sun {
-    width: 88px;
-    height: 88px;
-    flex-shrink: 0;
-    margin-right: 8px;
-  }
-  .sun svg {
-    width: 100%;
-    height: 100%;
   }
   .progress-card {
     display: flex;
@@ -452,17 +433,13 @@
     color: #3654c3;
     background: #dce5ff;
   }
-  .list-caption {
-    color: var(--muted);
-    font-size: 11px;
-  }
   .empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     padding: 28px 24px 38px;
-    min-height: 331px;
+    min-height: 270px;
     justify-content: center;
   }
   .empty-illustration {
@@ -481,43 +458,6 @@
     line-height: 1.85;
     color: var(--muted);
     margin-top: 7px;
-  }
-  .suggestions {
-    margin-top: 23px;
-  }
-  .suggestions > span {
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-    margin-bottom: 9px;
-  }
-  .suggestions > div {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .suggestion-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    border: 1px solid var(--border);
-    background: white;
-    color: #5d6c8a;
-    border-radius: 8px;
-    font-size: 11px;
-    padding: 9px 11px;
-    min-height: 36px;
-  }
-  .suggestion-button:hover {
-    border-color: #aebdf2;
-    color: var(--accent);
-    background: #f7f9ff;
-  }
-  .suggestion-button .icon {
-    width: 13px;
-    height: 13px;
   }
   .empty-check {
     display: grid;
@@ -640,6 +580,53 @@
     width: 18px;
     height: 18px;
   }
+  .task-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 4px;
+  }
+  .edit-button,
+  .cancel-edit-button {
+    color: #79869c;
+  }
+  .edit-button:hover,
+  .cancel-edit-button:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .edit-button .icon {
+    width: 18px;
+    height: 18px;
+  }
+  .task-edit-form {
+    width: 100%;
+    padding: 12px 0;
+  }
+  .task-edit-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .task-edit-controls input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #99a6bd;
+    border-radius: 9px;
+    background: white;
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .save-edit-button {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .save-edit-button:hover {
+    background: #dce5ff;
+  }
   .list-footer {
     display: flex;
     align-items: center;
@@ -740,9 +727,6 @@
     .header-inner {
       padding: 20px 24px;
     }
-    .header-note {
-      font-size: 11px;
-    }
     .workspace {
       padding: 35px 20px 100px;
     }
@@ -752,15 +736,6 @@
     }
     .page-heading h1 {
       letter-spacing: -1.2px;
-    }
-    .page-heading p {
-      font-size: 13px;
-      max-width: 240px;
-    }
-    .sun {
-      width: 66px;
-      height: 66px;
-      margin: 10px 0 0;
     }
     .progress-card {
       padding: 18px;
@@ -818,9 +793,6 @@
     .list-toolbar {
       padding: 13px 14px;
     }
-    .list-caption {
-      display: none;
-    }
     .task-filters {
       width: 100%;
       gap: 3px;
@@ -834,12 +806,7 @@
     }
     .empty-state {
       padding: 25px 14px 32px;
-      min-height: 330px;
-    }
-    .suggestion-button {
-      padding: 10px 9px;
-      font-size: 10px;
-      min-height: 44px;
+      min-height: 270px;
     }
     .task-list {
       padding: 5px 16px;
@@ -881,17 +848,8 @@
     }
   }
   @media (max-width: 360px) {
-    .header-note {
-      max-width: 110px;
-      text-align: right;
-      line-height: 1.5;
-    }
     .workspace {
       padding-inline: 12px;
-    }
-    .sun {
-      width: 50px;
-      height: 50px;
     }
     .filter-button {
       font-size: 10px;

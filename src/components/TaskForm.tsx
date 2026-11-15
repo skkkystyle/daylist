@@ -52,7 +52,7 @@ export function TaskForm({ onAdd }: { onAdd: (title: string) => boolean }) {
         </p>
       ) : (
         <p className="form-hint" id="task-hint">
-          Одно дело или большой план — начни с первой строки.{" "}
+          Напиши задачу и нажми «Добавить».{" "}
           <span className="enter-hint">
             <kbd>Enter</kbd> для добавления
           </span>
