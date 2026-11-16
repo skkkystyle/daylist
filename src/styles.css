@@ -555,7 +555,7 @@
     transition: color 160ms;
   }
   .task-item--completed .task-title {
-    color: #788399;
+    color: var(--muted);
     text-decoration: line-through;
     text-decoration-color: #9aa6bb;
   }
